@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+    echo "System Guard - A simple system monitoring tool"
+    echo "--------------------------------"
+    echo "Options:"
+    echo "  1) system - Show system information"
+    read -p "Enter your choice: " choice
+
+    case "$choice" in
+        1)
+            bash modules/system.sh
+            ;;
+        *)
+            echo "Invalid choice. Exiting."
+            exit 1
+            ;;
+    esac
+
+else
+
+    case "$1" in
+        --help)
+            echo "System Guard - A simple system monitoring tool"
+            echo "--------------------------------"
+            echo "Usage: ./sysguard [option]"
+            echo "Options:"
+            echo "  --help   Show  help message"
+            echo "  system   Show system information"
+            exit 0
+            ;;
+
+        system)
+            bash modules/system.sh
+            ;;
+        *)
+            echo "Invalid option. Use --help to show system information."
+            exit 1
+    esac
+
+fi
