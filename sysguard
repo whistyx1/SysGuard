@@ -8,7 +8,7 @@ if [[ $# -eq 0 ]]; then
             bash modules/system.sh
             ;;
         2)
-            bash modules/disk.sh
+            bash modules/disk.sh "$disk_path"
             ;;
         *)
             echo "Invalid choice. Exiting."
@@ -27,7 +27,7 @@ else
             bash modules/system.sh
             ;;
         disk)
-            bash modules/disk.sh
+            bash modules/disk.sh "${2:-/}"
             ;;
         *)
             echo "Invalid option. Use --help to show system information."

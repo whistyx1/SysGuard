@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#TODO: add info about other filesystems, not only root
-
 show_disk_info() {
-    local disk_info=$(df -h /)
+
+    local disk_path="${1:-/}"
+
+    local disk_info=$(df -h  "${disk_path:-/}")
 
     local file_system total_size used_size available_size usage_percentage mount_point
 
@@ -23,4 +24,4 @@ show_disk_info() {
     echo "-----------------"
 }
 
-show_disk_info
+show_disk_info "$@"
