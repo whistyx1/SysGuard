@@ -10,6 +10,9 @@ if [[ $# -eq 0 ]]; then
         2)
             bash modules/disk.sh "$disk_path"
             ;;
+        3)
+            bash modules/memory.sh
+            ;;
         *)
             echo "Invalid choice. Exiting."
             exit 1
@@ -28,6 +31,9 @@ else
             ;;
         disk)
             bash modules/disk.sh "${2:-/}"
+            ;;
+        memory)
+            bash modules/memory.sh
             ;;
         *)
             echo "Invalid option. Use --help to show system information."

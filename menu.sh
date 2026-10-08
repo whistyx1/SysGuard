@@ -6,6 +6,7 @@ show_menu() {
     echo "Options:"
     echo "  1) system - Show system information"
     echo "  2) disk   - Show disk information"
+    echo "  3) memory - Show memory information"
     read -p "Enter your choice: " choice
 
     if [[ "$choice" -eq 2 ]]; then

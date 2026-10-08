@@ -6,6 +6,7 @@ show_help() {
     echo "  --help   Show  help message"
     echo "  system   Show system information"
     echo "  disk [path]   Show disk information; default: /"
+    echo "  memory   Show memory information"
     echo "Example:"
     echo "  ./sysguard system"
     echo "  ./sysguard disk /var"
