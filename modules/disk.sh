@@ -4,7 +4,7 @@ show_disk_info() {
 
     local disk_path="${1:-/}"
 
-    local disk_info=$(df -h  "${disk_path:-/}")
+    local disk_info=$(df -h  "${disk_path}")
 
     local file_system total_size used_size available_size usage_percentage mount_point
 
