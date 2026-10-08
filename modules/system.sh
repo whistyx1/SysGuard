@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 show_system_info() {
     local host_name=$(hostname)
     local os_name=$(awk -F 'PRETTY_NAME=' '{print $2}' /etc/os-release | tr -d '"')

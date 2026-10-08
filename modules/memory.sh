@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 convert_to_gib() {
     printf "%.2f\n" "$(echo "scale=2; $1 / 1024 / 1024" | bc)"
 }

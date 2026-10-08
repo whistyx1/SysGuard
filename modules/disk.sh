@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 show_disk_info() {
 
     local disk_path="${1:-/}"
