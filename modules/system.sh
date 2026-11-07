@@ -4,7 +4,8 @@ set -euo pipefail
 
 show_system_info() {
     local host_name=$(hostname)
-    local os_name=$(awk -F 'PRETTY_NAME=' '{print $2}' /etc/os-release | tr -d '"')
+    local os_architecture=$(uname -m)
+    local os_name=$(awk -F 'PRETTY_NAME=' '/^PRETTY_NAME=/ {print $2}' /etc/os-release | tr -d '"')
     local kernel_name=$(uname -s)
     local kernel_version=$(uname -r)
     local uptime=$(uptime -p)
@@ -13,6 +14,7 @@ show_system_info() {
     echo "System Information:"
     echo "-------------------"
     echo "Host Name: $host_name"
+    echo "Architecture: $os_architecture"
     echo "Operating System: $os_name"
     echo "Kernel Name: $kernel_name"
     echo "Kernel Version: $kernel_version"

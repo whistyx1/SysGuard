@@ -1,43 +1,49 @@
 #!/bin/bash
 
-if [[ $# -eq 0 ]]; then
-    source menu.sh
+set -euo pipefail
 
-    case "$choice" in
-        1)
-            bash modules/system.sh
-            ;;
-        2)
-            bash modules/disk.sh "$disk_path"
-            ;;
-        3)
-            bash modules/memory.sh
-            ;;
-        *)
-            echo "Invalid choice. Exiting."
-            exit 1
-            ;;
-    esac
+script_dir="$(dirname "$(realpath "$0")")"
 
-else
 
-    case "$1" in
-        --help)
-            bash help.sh
-            ;;
+argument="${1:-menu}"
+disk_path="${2:-/}"
 
-        system)
-            bash modules/system.sh
-            ;;
-        disk)
-            bash modules/disk.sh "${2:-/}"
-            ;;
-        memory)
-            bash modules/memory.sh
-            ;;
-        *)
-            echo "Invalid option. Use --help to show system information."
-            exit 1
-    esac
-
-fi
+case "$argument" in
+    "--help" | "-h")
+        bash "$script_dir/help.sh"
+        ;;
+    "--version" | "-v")
+        echo "SysGuard version 0.1.0"
+        ;;
+    "menu")
+        source "$script_dir/menu.sh"
+        case "$choice" in
+            "1")
+                bash "$script_dir/modules/system.sh"
+                ;;
+            "2")
+                bash "$script_dir/modules/disk.sh" "${disk_path}"
+                ;;
+            "3")
+                bash "$script_dir/modules/memory.sh"
+                ;;
+            *)
+                echo "Invalid choice. Exiting."
+                exit 1
+                ;;
+        esac
+        ;;
+    "system")
+        bash "$script_dir/modules/system.sh"
+        ;;
+    "disk")
+        bash "$script_dir/modules/disk.sh" "${2:-/}"
+        ;;
+    "memory")
+        bash "$script_dir/modules/memory.sh"
+        ;;
+    *)
+        echo "Invalid argument. Use --help for usage information."
+        exit 1
+        ;;
+esac
