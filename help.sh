@@ -12,6 +12,7 @@ show_help() {
     echo "  memory   Show memory information"
     echo "  processes   Show process count and top processes by CPU and memory"
     echo "  cpu   Show CPU usage, logical cores, and model"
+    echo "  all   Show information from all available modules"
     echo "--------------------------------"
     echo "Example:"
     echo "  ./sysguard system"
@@ -19,6 +20,7 @@ show_help() {
     echo "  ./sysguard memory"
     echo "  ./sysguard processes"
     echo "  ./sysguard cpu"
+    echo "  ./sysguard all"
     echo "--------------------------------"
     exit 0
 }

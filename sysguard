@@ -47,6 +47,11 @@ case "$argument" in
             "5")
                 bash "$script_dir/modules/cpu.sh"
                 ;;
+            "6")
+                for module in system cpu memory disk processes; do
+                    bash "$script_dir/modules/${module}.sh"
+                done
+                ;;
             *)
                 printf 'Invalid choice. Exiting.\n' >&2
                 exit 1
@@ -67,6 +72,11 @@ case "$argument" in
         ;;
     "cpu")
         bash "$script_dir/modules/cpu.sh"
+        ;;
+    "all")
+        for module in system cpu memory disk processes; do
+            bash "$script_dir/modules/${module}.sh"
+        done
         ;;
     *)
         printf 'Invalid argument. Use --help for usage information.\n' >&2
