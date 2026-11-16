@@ -18,11 +18,10 @@ show_menu() {
     case "$choice" in
         1|3|4|5|6) ;;
         2)
-            if ! read -r -p "Enter disk path (default: /): " disk_path; then
+            if ! read -r -p "Enter disk path (leave blank for all filesystems): " disk_path; then
                 printf 'Could not read disk path.\n' >&2
                 return 1
             fi
-            disk_path="${disk_path:-/}"
             ;;
         *)
             printf 'Invalid choice. Enter 1, 2, 3, 4, 5, or 6.\n' >&2

@@ -10,7 +10,7 @@ script_dir="$(dirname "$script_path")"
 
 
 argument="${1-menu}"
-disk_path="${2-/}"
+disk_path="${2-}"
 
 if (( $# > 2 )) || { (( $# == 2 )) && [[ "$argument" != "disk" ]]; }; then
     printf 'Invalid arguments. Use --help for usage information.\n' >&2
@@ -36,7 +36,11 @@ case "$argument" in
                 bash "$script_dir/modules/system.sh"
                 ;;
             "2")
-                bash "$script_dir/modules/disk.sh" "${disk_path}"
+                if [[ -n "$disk_path" ]]; then
+                    bash "$script_dir/modules/disk.sh" "$disk_path"
+                else
+                    bash "$script_dir/modules/disk.sh"
+                fi
                 ;;
             "3")
                 bash "$script_dir/modules/memory.sh"
@@ -62,7 +66,11 @@ case "$argument" in
         bash "$script_dir/modules/system.sh"
         ;;
     "disk")
-        bash "$script_dir/modules/disk.sh" "$disk_path"
+        if (( $# == 2 )); then
+            bash "$script_dir/modules/disk.sh" "$disk_path"
+        else
+            bash "$script_dir/modules/disk.sh"
+        fi
         ;;
     "memory")
         bash "$script_dir/modules/memory.sh"

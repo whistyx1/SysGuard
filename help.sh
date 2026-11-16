@@ -8,7 +8,7 @@ show_help() {
     echo "  --help   Show  help message"
     echo "  --version   Show version information"
     echo "  system   Show system information"
-    echo "  disk [path]   Show disk information; default: /"
+    echo "  disk [path]   Show all filesystems, or the filesystem for path"
     echo "  memory   Show memory information"
     echo "  processes   Show process count and top processes by CPU and memory"
     echo "  cpu   Show CPU usage, logical cores, and model"
