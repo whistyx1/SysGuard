@@ -11,12 +11,14 @@ show_help() {
     echo "  disk [path]   Show disk information; default: /"
     echo "  memory   Show memory information"
     echo "  processes   Show process count and top processes by CPU and memory"
+    echo "  cpu   Show CPU usage, logical cores, and model"
     echo "--------------------------------"
     echo "Example:"
     echo "  ./sysguard system"
     echo "  ./sysguard disk /var"
     echo "  ./sysguard memory"
     echo "  ./sysguard processes"
+    echo "  ./sysguard cpu"
     echo "--------------------------------"
     exit 0
 }

@@ -44,6 +44,9 @@ case "$argument" in
             "4")
                 bash "$script_dir/modules/processes.sh"
                 ;;
+            "5")
+                bash "$script_dir/modules/cpu.sh"
+                ;;
             *)
                 printf 'Invalid choice. Exiting.\n' >&2
                 exit 1
@@ -61,6 +64,9 @@ case "$argument" in
         ;;
     "processes")
         bash "$script_dir/modules/processes.sh"
+        ;;
+    "cpu")
+        bash "$script_dir/modules/cpu.sh"
         ;;
     *)
         printf 'Invalid argument. Use --help for usage information.\n' >&2
