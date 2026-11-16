@@ -11,7 +11,7 @@ show_help() {
     echo "  disk [path]   Show all filesystems, or the filesystem for path"
     echo "  memory   Show memory information"
     echo "  processes   Show process count and top processes by CPU and memory"
-    echo "  cpu   Show CPU usage, logical cores, and model"
+    echo "  cpu [--per-core]   Show CPU usage, logical cores, model, and load average"
     echo "  all   Show information from all available modules"
     echo "--------------------------------"
     echo "Example:"
@@ -20,6 +20,7 @@ show_help() {
     echo "  ./sysguard memory"
     echo "  ./sysguard processes"
     echo "  ./sysguard cpu"
+    echo "  ./sysguard cpu --per-core"
     echo "  ./sysguard all"
     echo "--------------------------------"
     exit 0

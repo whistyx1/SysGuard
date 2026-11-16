@@ -12,9 +12,19 @@ script_dir="$(dirname "$script_path")"
 argument="${1-menu}"
 disk_path="${2-}"
 
-if (( $# > 2 )) || { (( $# == 2 )) && [[ "$argument" != "disk" ]]; }; then
+if (( $# > 2 )); then
     printf 'Invalid arguments. Use --help for usage information.\n' >&2
     exit 1
+fi
+if (( $# == 2 )); then
+    case "$argument:$2" in
+        disk:*) ;;
+        cpu:--per-core) ;;
+        *)
+            printf 'Invalid arguments. Use --help for usage information.\n' >&2
+            exit 1
+            ;;
+    esac
 fi
 
 if (( $# == 2 )) && [[ -z "$disk_path" ]]; then
@@ -79,7 +89,11 @@ case "$argument" in
         bash "$script_dir/modules/processes.sh"
         ;;
     "cpu")
-        bash "$script_dir/modules/cpu.sh"
+        if (( $# == 2 )); then
+            bash "$script_dir/modules/cpu.sh" "$2"
+        else
+            bash "$script_dir/modules/cpu.sh"
+        fi
         ;;
     "all")
         for module in system cpu memory disk processes; do
