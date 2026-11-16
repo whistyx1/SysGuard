@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+source "$(dirname -- "${BASH_SOURCE[0]}")/output.sh"
 
 convert_to_gib() {
     awk -v kib="$1" 'BEGIN {printf "%.2f\n", kib / 1048576}'
@@ -56,20 +57,19 @@ show_meminfo() {
         mem_swap_usage_percentage=$((mem_swap_used * 100 / mem_swap_total))
     fi
 
-    echo "Memory Information:"
-    echo "-------------------"
-    echo "Total Memory: $(convert_to_gib "$mem_total") GiB"
-    echo "Used Memory: $(convert_to_gib "$mem_used") GiB"
-    echo "Free Memory: $(convert_to_gib "$mem_free") GiB"
-    echo "Available Memory: $(convert_to_gib "$mem_available") GiB"
-    echo "Buffers: $(convert_to_gib "$mem_buffers") GiB"
-    echo "Cached: $(convert_to_gib "$mem_cached") GiB"
-    echo "Swap Total: $(convert_to_gib "$mem_swap_total") GiB"
-    echo "Swap Free: $(convert_to_gib "$mem_swap_free") GiB"
-    echo "Swap Used: $(convert_to_gib "$mem_swap_used") GiB"
-    echo "Swap Usage Percentage: $mem_swap_usage_percentage %"
-    echo "Memory Usage Percentage: $mem_usage_percentage %"
-    echo "-------------------"
+    print_section "Memory"
+    print_metric "Total" "$(convert_to_gib "$mem_total") GiB"
+    print_metric "Used" "$(convert_to_gib "$mem_used") GiB"
+    print_metric "Free" "$(convert_to_gib "$mem_free") GiB"
+    print_metric "Available" "$(convert_to_gib "$mem_available") GiB"
+    print_metric "Buffers" "$(convert_to_gib "$mem_buffers") GiB"
+    print_metric "Cached" "$(convert_to_gib "$mem_cached") GiB"
+    print_section "Swap"
+    print_metric "Total" "$(convert_to_gib "$mem_swap_total") GiB"
+    print_metric "Used" "$(convert_to_gib "$mem_swap_used") GiB"
+    print_metric "Free" "$(convert_to_gib "$mem_swap_free") GiB"
+    print_metric "Usage" "$mem_swap_usage_percentage%"
+    print_metric "Memory usage" "$mem_usage_percentage%"
 }
 
 show_meminfo

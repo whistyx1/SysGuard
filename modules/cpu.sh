@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+source "$(dirname -- "${BASH_SOURCE[0]}")/output.sh"
 
 show_cpu_info() {
     local user1 nice1 system1 idle1 iowait1 irq1 softirq1 steal1
@@ -53,12 +54,10 @@ show_cpu_info() {
     fi
     cpu_model="${cpu_model:-Unavailable in /proc/cpuinfo}"
 
-    printf 'CPU Information:\n'
-    printf '%s\n' '----------------'
-    printf 'CPU Model: %s\n' "$cpu_model"
-    printf 'Logical Cores: %s\n' "$logical_cores"
-    printf 'Usage (1 second sample): %s%%\n' "$cpu_usage"
-    printf '%s\n' '----------------'
+    print_section "CPU"
+    print_metric "Model" "$cpu_model"
+    print_metric "Logical cores" "$logical_cores"
+    print_metric "Usage (1 second sample)" "$cpu_usage%"
 }
 
 show_cpu_info

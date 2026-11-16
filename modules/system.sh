@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+source "$(dirname -- "${BASH_SOURCE[0]}")/output.sh"
 
 show_system_info() {
     local host_name os_architecture os_name kernel_name kernel_version uptime_info load_average
@@ -24,16 +25,13 @@ show_system_info() {
         return 1
     fi
 
-    echo "System Information:"
-    echo "-------------------"
-    echo "Host Name: $host_name"
-    echo "Architecture: $os_architecture"
-    echo "Operating System: $os_name"
-    echo "Kernel Name: $kernel_name"
-    echo "Kernel Version: $kernel_version"
-    echo "Uptime: $uptime_info"
-    echo "Load Average: $load_average"
-    echo "-------------------"
+    print_section "System"
+    print_metric "Host name" "$host_name"
+    print_metric "Architecture" "$os_architecture"
+    print_metric "Operating system" "$os_name"
+    print_metric "Kernel" "$kernel_name $kernel_version"
+    print_metric "Uptime" "$uptime_info"
+    print_metric "Load average" "$load_average"
 }
 
 show_system_info

@@ -1,6 +1,26 @@
 #!/bin/bash
 
 set -euo pipefail
+source "$(dirname -- "${BASH_SOURCE[0]}")/output.sh"
+
+show_top_processes() {
+    local sort_by="$1" title="$2" rows pid command cpu memory index=1
+
+    if ! rows=$(ps -eo pid=,comm=,%cpu=,%mem= --sort="-$sort_by" | sed -n '1,5p'); then
+        printf 'Could not list processes by %s.\n' "$sort_by" >&2
+        return 1
+    fi
+    if [[ -z "$rows" ]]; then
+        printf 'No process data returned.\n' >&2
+        return 1
+    fi
+
+    print_section "$title"
+    while read -r pid command cpu memory; do
+        print_metric "$index. $command (PID $pid)" "CPU ${cpu}% | MEM ${memory}%"
+        ((index += 1))
+    done <<< "$rows"
+}
 
 show_process_info() {
     local process_count
@@ -16,21 +36,11 @@ show_process_info() {
         return 1
     fi
 
-    printf 'Process Information:\n'
-    printf '%s\n' '-------------------'
-    printf 'Total Processes: %s\n\n' "$process_count"
+    print_section "Processes"
+    print_metric "Total" "$process_count"
 
-    printf 'Top Processes by CPU:\n'
-    if ! ps -eo pid,comm,%cpu,%mem --sort=-%cpu | head -n 6; then
-        printf 'Could not list processes by CPU.\n' >&2
-        return 1
-    fi
-
-    printf '\nTop Processes by Memory:\n'
-    if ! ps -eo pid,comm,%cpu,%mem --sort=-%mem | head -n 6; then
-        printf 'Could not list processes by memory.\n' >&2
-        return 1
-    fi
+    show_top_processes '%cpu' 'Top by CPU'
+    show_top_processes '%mem' 'Top by memory'
 }
 
 show_process_info

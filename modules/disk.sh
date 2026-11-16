@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+source "$(dirname -- "${BASH_SOURCE[0]}")/output.sh"
 
 show_disk_info() {
     local disk_info
@@ -27,10 +28,16 @@ show_disk_info() {
         return 1
     fi
 
-    printf 'Disk Information:\n'
-    printf '%s\n' '-----------------'
-    printf '%s\n' "$disk_info"
-    printf '%s\n' '-----------------'
+    print_section "Disk"
+    while read -r filesystem size used available usage mount_point; do
+        [[ -z "$filesystem" || "$filesystem" == "Filesystem" ]] && continue
+        print_section "$mount_point"
+        print_metric "Filesystem" "$filesystem"
+        print_metric "Size" "$size"
+        print_metric "Used" "$used"
+        print_metric "Available" "$available"
+        print_metric "Usage" "$usage"
+    done <<< "$disk_info"
 }
 
 show_disk_info "$@"
