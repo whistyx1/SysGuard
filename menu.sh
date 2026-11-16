@@ -10,13 +10,14 @@ show_menu() {
     echo "  4) processes - Show process information"
     echo "  5) cpu - Show CPU information"
     echo "  6) all - Show all system information"
+    echo "  7) disk I/O - Show read/write counters and throughput"
     if ! read -r -p "Enter your choice: " choice; then
         printf 'Could not read menu choice.\n' >&2
         return 1
     fi
 
     case "$choice" in
-        1|3|4|5|6) ;;
+        1|3|4|5|6|7) ;;
         2)
             if ! read -r -p "Enter disk path (leave blank for all filesystems): " disk_path; then
                 printf 'Could not read disk path.\n' >&2
@@ -24,7 +25,7 @@ show_menu() {
             fi
             ;;
         *)
-            printf 'Invalid choice. Enter 1, 2, 3, 4, 5, or 6.\n' >&2
+            printf 'Invalid choice. Enter 1, 2, 3, 4, 5, 6, or 7.\n' >&2
             return 1
             ;;
     esac

@@ -66,6 +66,9 @@ case "$argument" in
                     bash "$script_dir/modules/${module}.sh"
                 done
                 ;;
+            "7")
+                bash "$script_dir/modules/disk.sh" --io
+                ;;
             *)
                 printf 'Invalid choice. Exiting.\n' >&2
                 exit 1
