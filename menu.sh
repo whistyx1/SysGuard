@@ -7,11 +7,26 @@ show_menu() {
     echo "  1) system - Show system information"
     echo "  2) disk   - Show disk information"
     echo "  3) memory - Show memory information"
-    read -p "Enter your choice: " choice
-
-    if [[ "$choice" -eq 2 ]]; then
-        read -p "Enter path to disk.sh (/ - by default): " disk_path
+    echo "  4) processes - Show process information"
+    if ! read -r -p "Enter your choice: " choice; then
+        printf 'Could not read menu choice.\n' >&2
+        return 1
     fi
+
+    case "$choice" in
+        1|3|4) ;;
+        2)
+            if ! read -r -p "Enter disk path (default: /): " disk_path; then
+                printf 'Could not read disk path.\n' >&2
+                return 1
+            fi
+            disk_path="${disk_path:-/}"
+            ;;
+        *)
+            printf 'Invalid choice. Enter 1, 2, 3, or 4.\n' >&2
+            return 1
+            ;;
+    esac
 }
 
 show_menu

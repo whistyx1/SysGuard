@@ -10,7 +10,7 @@ show_help() {
     echo "  system   Show system information"
     echo "  disk [path]   Show disk information; default: /"
     echo "  memory   Show memory information"
-    echo "  processes   Show process information"
+    echo "  processes   Show process count and top processes by CPU and memory"
     echo "--------------------------------"
     echo "Example:"
     echo "  ./sysguard system"
