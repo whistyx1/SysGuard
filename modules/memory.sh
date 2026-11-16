@@ -8,7 +8,7 @@ convert_to_gib() {
 
 show_meminfo() {
     local mem_total='' mem_free='' mem_available='' mem_buffers='' mem_cached=''
-    local mem_swap_total='' mem_swap_free='' mem_swap_used='' key value unit
+    local mem_swap_total='' mem_swap_free='' mem_swap_used='' mem_used key value unit
     local mem_usage_percentage mem_swap_usage_percentage
 
     if [[ ! -r /proc/meminfo ]]; then
@@ -49,6 +49,7 @@ show_meminfo() {
     fi
 
     mem_usage_percentage=$(( (mem_total - mem_available) * 100 / mem_total))
+    mem_used=$((mem_total - mem_available))
     mem_swap_used=$((mem_swap_total - mem_swap_free ))
     mem_swap_usage_percentage=0
     if (( mem_swap_total > 0 )); then
@@ -58,6 +59,7 @@ show_meminfo() {
     echo "Memory Information:"
     echo "-------------------"
     echo "Total Memory: $(convert_to_gib "$mem_total") GiB"
+    echo "Used Memory: $(convert_to_gib "$mem_used") GiB"
     echo "Free Memory: $(convert_to_gib "$mem_free") GiB"
     echo "Available Memory: $(convert_to_gib "$mem_available") GiB"
     echo "Buffers: $(convert_to_gib "$mem_buffers") GiB"
