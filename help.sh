@@ -13,6 +13,7 @@ show_help() {
     echo "  processes   Show process count and top processes by CPU and memory"
     echo "  cpu [--per-core]   Show CPU usage, logical cores, model, and load average"
     echo "  all   Show information from all available modules"
+    echo "  network   Show network interfaces, addresses, and traffic rates"
     echo "--------------------------------"
     echo "Example:"
     echo "  ./sysguard system"
@@ -23,6 +24,7 @@ show_help() {
     echo "  ./sysguard cpu"
     echo "  ./sysguard cpu --per-core"
     echo "  ./sysguard all"
+    echo "  ./sysguard network"
     echo "--------------------------------"
     exit 0
 }

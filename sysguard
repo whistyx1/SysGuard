@@ -69,6 +69,9 @@ case "$argument" in
             "7")
                 bash "$script_dir/modules/disk.sh" --io
                 ;;
+            "8")
+                bash "$script_dir/modules/network.sh"
+                ;;
             *)
                 printf 'Invalid choice. Exiting.\n' >&2
                 exit 1
@@ -90,6 +93,9 @@ case "$argument" in
         ;;
     "processes")
         bash "$script_dir/modules/processes.sh"
+        ;;
+    "network")
+        bash "$script_dir/modules/network.sh"
         ;;
     "cpu")
         if (( $# == 2 )); then
