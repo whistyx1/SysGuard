@@ -9,7 +9,7 @@ convert_to_gib() {
 show_meminfo() {
     local mem_total='' mem_free='' mem_available='' mem_buffers='' mem_cached=''
     local mem_swap_total='' mem_swap_free='' mem_swap_used='' key value unit
-    local mem_usage_percentage
+    local mem_usage_percentage mem_swap_usage_percentage
 
     if [[ ! -r /proc/meminfo ]]; then
         printf 'Cannot read /proc/meminfo.\n' >&2
@@ -50,6 +50,10 @@ show_meminfo() {
 
     mem_usage_percentage=$(( (mem_total - mem_available) * 100 / mem_total))
     mem_swap_used=$((mem_swap_total - mem_swap_free ))
+    mem_swap_usage_percentage=0
+    if (( mem_swap_total > 0 )); then
+        mem_swap_usage_percentage=$((mem_swap_used * 100 / mem_swap_total))
+    fi
 
     echo "Memory Information:"
     echo "-------------------"
@@ -61,6 +65,7 @@ show_meminfo() {
     echo "Swap Total: $(convert_to_gib "$mem_swap_total") GiB"
     echo "Swap Free: $(convert_to_gib "$mem_swap_free") GiB"
     echo "Swap Used: $(convert_to_gib "$mem_swap_used") GiB"
+    echo "Swap Usage Percentage: $mem_swap_usage_percentage %"
     echo "Memory Usage Percentage: $mem_usage_percentage %"
     echo "-------------------"
 }
